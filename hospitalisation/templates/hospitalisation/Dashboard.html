@@ -1,0 +1,298 @@
+{% extends 'hospitalisation/Index.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3 ">
+                <aside class="menu is-hidden-mobile">
+
+                    <ul class="menu-list">
+                        <li><a href="{% url 'dashboard'%}" class="is-active">Dashboard</a></li>
+                        <li><a href="{% url 'dashboard_Medcins'%}"> Medcines</a></li>
+                        <li><a href="{% url 'dashboard_Assistants' %}" >Assistants</a></li>
+                        <li><a href="{% url 'dashboard_Patients' %}">Patients</a></li>
+                        <li><a href="{% url 'dashboard_Salles' %}">Salles</a></li>
+                        <li><a href="{% url 'dashboard_Hospitalisations' %}">Hospitalisations</a></li>
+                        <li><a href="{% url 'dashboard_Matériel' %}"> Ressources matérielles</a></li>
+
+                    </ul>
+
+                </aside>
+            </div>
+            <div class="column is-9">
+
+                <section class="hero is-info welcome is-small">
+                    <div class="hero-body">
+                        <div class="container">
+                            <h1 class="title">
+                                Salut! {{request.user.username}}
+                            </h1>
+                            <h2 class="subtitle">
+                                J'éspere que vous allez bien!
+                            </h2>
+                        </div>
+                    </div>
+                </section>
+                <hr>
+                <section class="info-tiles">
+                    <div class="tile is-ancestor has-text-centered">
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <p class="title">{{ total_médcins}}</p>
+                                <p class="subtitle">Medcins</p>
+                            </article>
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <p class="title">{{total_patients}}</p>
+                                <p class="subtitle">Patiens</p>
+                            </article>
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <p class="title">{{total_assistants}}</p>
+                                <p class="subtitle">Assistant</p>
+                            </article>
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                   <p class="title">{{total_hospitalisations}}</p>
+                                <p class="subtitle">Hospitalisation</p>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+                <br>
+
+                <div id="container77" style="    display: block;
+    height: 367px;
+    width: 760px;
+    margin-left: 65px;
+    margin-top: 30px;">
+    <canvas id="population-chart3" data-url="{% url 'population-chart-medecin' %}"></canvas>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+    $(function () {
+
+      var $populationChart = $("#population-chart3");
+      $.ajax({
+        url: $populationChart.data("url"),
+        success: function (data) {
+
+          var ctx = $populationChart[0].getContext("2d");
+
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: data.labels,
+
+              datasets: [{
+                label: 'HR : Medecins',
+                borderWidth :2,
+                borderColor : 'cee5d0',
+                backgroundColor: '#cee5d0',
+                data: data.data
+
+              }
+           ]
+            },
+            options: {
+              responsive: true,
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Medecin Par rapport Jour'
+              }
+            }
+          });
+
+        }
+      });
+
+    });
+
+  </script>
+
+                                <br>    <br>
+                <div id="container4" style="    display: block;
+    height: 367px;
+    width: 760px;
+    margin-left: 65px;
+    margin-top: 30px;">
+    <canvas id="population-chart4" data-url="{% url 'population-chart-assistant' %}"></canvas>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+    $(function () {
+
+      var $populationChart = $("#population-chart4");
+      $.ajax({
+        url: $populationChart.data("url"),
+        success: function (data) {
+
+          var ctx = $populationChart[0].getContext("2d");
+
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: data.labels,
+
+              datasets: [{
+                label: 'HR : Assistants',
+                borderWidth :2,
+                borderColor : 'cee5d0',
+                backgroundColor: '#cee5d0',
+                data: data.data
+
+              }
+           ]
+            },
+            options: {
+              responsive: true,
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Assistant Par rapport Jour'
+              }
+            }
+          });
+
+        }
+      });
+
+    });
+
+  </script>
+
+                                <br>
+                <div id="container2" style="    display: block;
+    height: 367px;
+    width: 760px;
+    margin-left: 65px;
+    margin-top: 30px;">
+    <canvas id="population-chart2" data-url="{% url 'population-chart-patient' %}"></canvas>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+    $(function () {
+
+      var $populationChart = $("#population-chart2");
+      $.ajax({
+        url: $populationChart.data("url"),
+        success: function (data) {
+
+          var ctx = $populationChart[0].getContext("2d");
+
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: data.labels,
+              datasets: [{
+                label: 'Patients',
+                borderWidth :2,
+                borderColor : 'dark',
+                backgroundColor: '#f39189',
+                data: data.data
+
+              }]
+            },
+            options: {
+              responsive: true,
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Patient  Par rapport jour de visite'
+              }
+            }
+          });
+
+        }
+      });
+
+    });
+
+  </script>
+                <div id="container" style="    display: block;
+    height: 367px;
+    width: 760px;
+    margin-left: 65px;
+    margin-top: 30px;">
+    <canvas id="population-chart" data-url="{% url 'population-chart' %}"></canvas>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+    $(function () {
+
+      var $populationChart = $("#population-chart");
+      $.ajax({
+        url: $populationChart.data("url"),
+        success: function (data) {
+
+          var ctx = $populationChart[0].getContext("2d");
+
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: data.labels,
+              datasets: [{
+                label: 'Ressources Matériels',
+                backgroundColor: '#8ab6d6',
+                data: data.data
+              }]
+            },
+            options: {
+              responsive: true,
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'RM par rapport au Jour'
+              }
+            }
+          });
+
+        }
+      });
+
+    });
+  </script>
+
+                <br>
+
+
+
+                <br>
+                <br>
+
+
+                    </div>
+                    </div>
+
+
+
+    </div>
+    </div>
+<br>
+
+    <script async type="text/javascript" src="../js/bulma.js"></script>
+
+
+{% endblock content %}
+

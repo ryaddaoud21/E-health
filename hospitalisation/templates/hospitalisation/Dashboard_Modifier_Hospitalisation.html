@@ -1,0 +1,55 @@
+{% extends 'hospitalisation/Index.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3 ">
+                <aside class="menu is-hidden-mobile">
+
+                    <ul class="menu-list">
+                         <li><a href="{% url 'dashboard'%}" >Dashboard</a></li>
+                        <li><a href="{% url 'dashboard_Medcins'%}"> Medcines</a></li>
+                        <li><a href="{% url 'dashboard_Assistants' %}" >Assistants</a></li>
+                        <li><a href="{% url 'dashboard_Patients' %}" >Patients</a></li>
+                        <li><a href="{% url 'dashboard_Salles' %}" >Salles</a></li>
+                        <li><a href="{% url 'dashboard_Hospitalisations' %}" class="is-active">Hospitalisations</a></li>
+                        <li><a href="{% url 'dashboard_Matériel' %}"> Ressources matérielles</a></li>
+
+                    </ul>
+
+                </aside>
+            </div>
+            <div class="column is-9">
+
+                <section class="hero is-info welcome is-small">
+                    <div class="hero-body">
+                        <div class="container">
+                            <h1 class="title">
+                               Modifier Des Hospitalisations.
+                            </h1>
+                        </div>
+                    </div>
+                </section>
+                <hr>
+                <form method="POST" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input class="btn btn-primary" type="submit" name="apply">
+                </form>
+            </div>
+
+
+      </div>
+
+
+    </div>
+
+
+
+    <script async type="text/javascript" src="../js/bulma.js"></script>
+
+
+{% endblock content %}
+
+

@@ -1,0 +1,87 @@
+{% extends 'hospitalisation/Index.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3 ">
+                <aside class="menu is-hidden-mobile">
+
+                    <ul class="menu-list">
+                         <li><a href="{% url 'dashboard'%}" >Dashboard</a></li>
+                        <li><a href="{% url 'dashboard_Medcins'%}" class="is-active"> Medcines</a></li>
+                        <li><a href="{% url 'dashboard_Assistants' %}" >Assistants</a></li>
+                        <li><a href="{% url 'dashboard_Patients' %}">Patients</a></li>
+                        <li><a href="{% url 'dashboard_Salles' %}">Salles</a></li>
+                        <li><a href="{% url 'dashboard_Hospitalisations' %}">Hospitalisations</a></li>
+                        <li><a href="{% url 'dashboard_Matériel' %}"> Ressources matérielles</a></li>
+
+                    </ul>
+
+                </aside>
+            </div>
+            <div class="column is-9">
+
+                <section class="hero is-info welcome is-small">
+                    <div class="hero-body">
+                        <div class="container">
+                            <h1 class="title">
+                               Listes Des Medcins.
+                            </h1>
+                        </div>
+                    </div>
+                </section>
+                <hr>
+                <section class="info-tiles">
+                    <div class="tile is-ancestor has-text-centered">
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <p class="subtitle">Ajouter un Médcin </p>
+                                 <a href="{% url 'dashboard_ajouter_medcin'%}"><button class="button is-info" >Ajouter</button> </a>
+                            </article>
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <p class="subtitle">Médcins disponible</p>
+                                <button class="button is-info"> Consulter</button>
+
+                            </article>
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child  box">
+                                <p class="subtitle">Gérer Médcins</p>
+                                <button class="button is-info"> Gérer</button>
+
+                            </article>
+                        </div>
+                    </div>
+                </section>
+                <div class="card-content">
+                    {% for docteur in docteurs %}
+                    <div class="col-md-4 col-sm-6">
+                         <div class="team-thumb wow fadeInUp" data-wow-delay="0.2s">
+                              <img src="{{docteur.imageURL}}" class="img-responsive" alt="">
+
+                                   <div class="team-info">
+                                        <h3>{{docteur.Nom}}</h3>
+                                        <p>{{docteur.specialite}}</p>
+                                        <div class="team-contact-info">
+                                             <p><i class="fa fa-phone"></i> {{docteur.Téléphone}}</p>
+                                             <p><i class="fa fa-envelope-o"></i> <a href="#">{{docteur.Email}}</a></p>
+                                             <p><i class="fa fa-time"></i> <a href="#"> {{docteur.heure_debut}} - {{docteur.heure_Fin}} </a></p>
+                                        </div>
+
+                                   </div>
+
+                         </div>
+                    </div>
+                    {% endfor  %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script async type="text/javascript" src="../js/bulma.js"></script>
+
+
+{% endblock content %}
+

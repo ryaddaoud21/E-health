@@ -1,0 +1,110 @@
+{% extends 'hospitalisation/Index.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3 ">
+                <aside class="menu is-hidden-mobile">
+
+                    <ul class="menu-list">
+                        <li><a href="{% url 'dashboard'%}" >Dashboard</a></li>
+                        <li><a href="{% url 'dashboard_Medcins'%}"> Medcines</a></li>
+                        <li><a href="{% url 'dashboard_Assistants' %}" >Assistants</a></li>
+                        <li><a href="{% url 'dashboard_Patients' %}">Patients</a></li>
+                        <li><a href="{% url 'dashboard_Salles' %}">Salles</a></li>
+                        <li><a href="{% url 'dashboard_Hospitalisations' %}">Hospitalisations</a></li>
+                        <li><a href="{% url 'dashboard_Matériel' %}" class="is-active"> Ressources matérielles</a></li>
+
+                    </ul>
+
+                </aside>
+            </div>
+            <div class="column is-9">
+
+                <section class="hero is-info welcome is-small">
+                    <div class="hero-body">
+                        <div class="container">
+                            <h1 class="title">
+Listes des Matériels Disponibles                            </h1>
+
+                        </div>
+                    </div>
+                </section>
+                <hr>
+
+                <section class="info-tiles">
+                     <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <p style="margin-left: 310px;" class="subtitle">Ajouter Matériel </p>
+                                 <a style="margin-left: 340px;" href="{% url 'dashboard_ajouter_materiel'%}"><button class="button is-info">Ajouter</button> </a>
+
+                            </article>
+                     </div>
+
+                    <div class="tile is-ancestor has-text-centered">
+
+                        {% for Mat in Mats %}
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <p class="title">{{Mat.quantié}}</p>
+                                <p style="    font-size: 16px;
+" class="subtitle">{{Mat.type}}</p>
+                            </article>
+
+
+                        </div>
+                        {% endfor %}
+
+
+                    </div>
+                     <div class="titre" style="width: 75%;
+                                                            margin-left: 141px;
+                                                            font-style: normal;
+                                                            font-size: larger;
+                                                            font-size: 25px;
+                                                        }">Ressources Matérielles par rapport au quantité</div>
+
+                     <div id="container" style="width: 75%; margin-left:115px;">
+                        <canvas id="pie-chart"></canvas>
+                      </div>
+                      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+                      <script>
+
+                        var config = {
+                          type: 'pie',
+                          data: {
+                            datasets: [{
+                              data: {{ data|safe }},
+                              backgroundColor: [
+                                '#caf7e3', '#f9b208', '#3d84b8', '#ca8a8b', 'dark'
+                              ],
+                              label: 'Ressource_Materiel'
+                            }],
+                            labels: {{ labels|safe }}
+                          },
+                          options: {
+                            responsive: true
+                          }
+                        };
+
+                        window.onload = function() {
+                          var ctx = document.getElementById('pie-chart').getContext('2d');
+                          window.myPie = new Chart(ctx, config);
+                        };
+
+                      </script>
+                                        <br>
+
+
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <script async type="text/javascript" src="../js/bulma.js"></script>
+
+
+{% endblock content %}
+

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+     <title>E-Health</title>
+<!--
+
+Template 2098 Health
+
+http://www.tooplate.com/view/2098-health
+
+-->
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="Tooplate">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+     <link rel="stylesheet" type="text/css" href="../css/admin.css">
+     <link rel="stylesheet" href="{% static 'hospitalisation/css/bootstrap.min3.css' %}">
+     <link rel="stylesheet" href="{% static 'hospitalisation/css/font-awesome.min.css' %}">
+     <link rel="stylesheet" href="{% static 'hospitalisation/css/animate.css' %}">
+     <link rel="stylesheet" href="{% static 'hospitalisation/css/owl.carousel.css' %}">
+     <link rel="stylesheet" href="{% static 'hospitalisation/css/owl.theme.default.min.css' %}">
+     <link rel="stylesheet" href="{% static 'hospitalisation/css/bulma.css' %}">
+
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="{% static 'hospitalisation/css/Main.css' %}">
+
+</head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+     <!-- PRE LOADER -->
+     <section class="preloader">
+          <div class="spinner">
+
+               <span class="spinner-rotate"></span>
+               
+          </div>
+     </section>
+
+     <!-- MENU -->
+     <section class="navbar navbar-default navbar-static-top" role="navigation">
+          <div class="container">
+
+               <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                    </button>
+
+                    <!-- lOGO TEXT HERE -->
+                    <a href="{% url 'dashboard' %}" class="navbar-brand">SA<i class="fa fa-h-square"></i>TEK +</a>
+               </div>
+               {% if request.user.is_authenticated %}
+               <a class="section-btn btn btn-default " style="margin-left: auto;height: 35px; margin-top: 10px;"  href="{% url 'logout' %}"> Logout</a>
+               {% endif %}
+
+
+
+          </div>
+     </section>
+
+
+{% block content %}
+
+
+
+{% endblock   %}
+
+
+     <!-- FOOTER -->
+
+     <!-- SCRIPTS -->
+     <script src="{% static 'hospitalisation/js/jquery.js' %}"></script>
+     <script src="{% static 'hospitalisation/js/bootstrap.min.js' %}"></script>
+     <script src="{% static 'hospitalisation/js/jquery.sticky.js' %}"></script>
+     <script src="{% static 'hospitalisation/js/jquery.stellar.min.js' %}"></script>
+     <script src="{% static 'hospitalisation/js/wow.min.js' %}"></script>
+     <script src="{% static 'hospitalisation/js/smoothscroll.js' %}"></script>
+     <script src="{% static 'hospitalisation/js/owl.carousel.min.js' %}"></script>
+     <script src="{% static 'hospitalisation/js/custom.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+
+</body>
+</html>

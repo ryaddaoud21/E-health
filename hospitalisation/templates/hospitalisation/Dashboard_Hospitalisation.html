@@ -1,0 +1,111 @@
+{% extends 'hospitalisation/Index.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3 ">
+                <aside class="menu is-hidden-mobile">
+
+                    <ul class="menu-list">
+                         <li><a href="{% url 'dashboard'%}" >Dashboard</a></li>
+                        <li><a href="{% url 'dashboard_Medcins'%}"> Medcines</a></li>
+                        <li><a href="{% url 'dashboard_Assistants' %}" >Assistants</a></li>
+                        <li><a href="{% url 'dashboard_Patients' %}">Patients</a></li>
+                        <li><a href="{% url 'dashboard_Salles' %}">Salles</a></li>
+                        <li><a href="{% url 'dashboard_Hospitalisations' %}" class="is-active" >Hospitalisations</a></li>
+                        <li><a href="{% url 'dashboard_Matériel' %}"> Ressources matérielles</a></li>
+
+                    </ul>
+
+                </aside>
+            </div>
+            <div class="column is-9">
+
+                <section class="hero is-info welcome is-small">
+                    <div class="hero-body">
+                        <div class="container">
+                            <h1 class="title">
+                               Listes Des Hospitalisations.
+                            </h1>
+                        </div>
+                    </div>
+                </section>
+                <hr>
+                <section class="info-tiles">
+                    <div class="tile is-ancestor has-text-centered">
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <p class="subtitle">Ajouter une hospitalisation </p>
+                                 <a href="{% url 'dashboard_ajouter_hospitalisation'%}"><button class="button is-info" >Ajouter</button> </a>
+                            </article>
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child  box">
+                                <p class="subtitle">L'archive Des Hospitalisation</p>
+                                <button class="button is-info"> Vérifier</button>
+
+                            </article>
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child  box">
+                                <p class="subtitle">Gérer Des Hospitalisation</p>
+                                 <a ><button class="button is-info" >Gérer</button> </a>
+
+                            </article>
+                        </div>
+                    </div>
+                </section>
+                <div class="card-content">
+                           <form method="GET">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-2 col-lg-2">
+                                      <label for="DateEntée1" style="width:0%;margin-left:-19px; ">Entrée:</label>
+                                       <input style="width:190%;    margin-left: -20px;" type="date" class="form-control" id="DateEntée1"  name="Date_Entrée">
+                                      </div>
+                                        <div class="form-group col-md-2 col-lg-2">
+                                        <label for="DateSortie1" style="width:100%; margin-left:65px;">Sortie:</label>
+                                        <input style="width:190%;    margin-left: 60px;" type="date" class="form-control" id="DateSortie1"  name="Date_Sortie">
+                                      </div>
+                                      </div>
+
+                                    <button  style="        margin-top: 30px;
+                                                            margin-left: 185px;
+                                                            width: 20%;
+                                                            height: 33px;" type="submit" class="button is-success">Chercher</button>
+                                  </form>
+
+
+
+			<table class="table table-sm">
+				<tr>
+					<th>Patient</th>
+					<th>Médcin</th>
+					<th>Assistant</th>
+					<th>N° Salle</th>
+					<th>Date d'entrée</th>
+					<th>Date de sortie</th>
+				</tr>
+
+				{% for hospitalisation in hospitalisations  %}
+					<tr>
+						<td>{{hospitalisation.patient.Nom}}</td>
+						<td>{{hospitalisation.médcin.Nom}} </td>
+						<td>{{hospitalisation.assistant.Nom}}</td>
+						<td><a class="btn btn-sm btn-success" href="#">{{hospitalisation.Salle.Nemero_salle}}</a></td>
+                        <td>{{hospitalisation.Date_Entrée}}</td>
+                        <td>{{hospitalisation.Date_Sortie}}</td>
+                        <td><a  href="{% url 'dashboard_modifier_hospitalisation' hospitalisation.id %}" ><button class="button "> Modifier</button> </a></td>
+
+					</tr>
+				{% endfor %}
+            </table>
+
+                </div>
+            </div>
+        </div>
+    <script async type="text/javascript" src="../js/bulma.js"></script>
+
+
+{% endblock content %}
+

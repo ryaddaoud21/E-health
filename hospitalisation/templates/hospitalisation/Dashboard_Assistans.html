@@ -1,0 +1,125 @@
+{% extends 'hospitalisation/Index.html' %}
+{% load static %}
+{% block content %}
+
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3 ">
+                <aside class="menu is-hidden-mobile">
+
+                    <ul class="menu-list">
+                         <li><a href="{% url 'dashboard'%}" >Dashboard</a></li>
+                        <li><a href="{% url 'dashboard_Medcins'%}"> Medcines</a></li>
+                        <li><a href="{% url 'dashboard_Assistants' %}"  class="is-active" >Assistants</a></li>
+                        <li><a href="{% url 'dashboard_Patients' %}">Patients</a></li>
+                        <li><a href="{% url 'dashboard_Salles' %}">Salles</a></li>
+                        <li><a href="{% url 'dashboard_Hospitalisations' %}">Hospitalisations</a></li>
+                        <li><a href="{% url 'dashboard_Matériel' %}"> Ressources matérielles</a></li>
+                    </ul>
+
+                </aside>
+            </div>
+            <div class="column is-9">
+
+                <section class="hero is-info welcome is-small">
+                    <div class="hero-body">
+                        <div class="container">
+                            <h1 class="title">
+                               Listes Des Assistants.
+                            </h1>
+                        </div>
+                    </div>
+                </section>
+                <hr>
+                <section class="info-tiles">
+                    <div class="tile is-ancestor has-text-centered">
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <p class="subtitle">Ajouter un assistant </p>
+                                 <a href="{% url 'dashboard_ajouter_assistant'%}"><button class="button is-info" >Ajouter</button> </a>
+
+                            </article>
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <p class="subtitle" >Assistants disponible</p>
+                                <a href="{% url 'dashboard_Assistants_liste'%}"><button class="button is-info"> Consulter</button></a>
+
+                            </article>
+                        </div>
+                    </div>
+                </section>
+                <div class="card-content">
+                      <div class="filter" >
+
+                                   <form method="GET" action=".">
+                                    <div class="form-row">
+                                      <div class="form-group col-md-3 col-lg-3">
+                                        <label for="Nom">Nom</label>
+                                        <input type="text" class="form-control" id="Nom" placeholder="Dr..." name="Nom">
+                                      </div>
+                                      <div class="form-group col-md-3 col-lg-3">
+                                        <label for="jour">Jour:</label> <br>
+                                        <select id="jour" name="jour_travail" style="margin-top: 0px;
+                                                                                        width: 83%;
+                                                                                        height: 34px;
+                                                                                        }">
+                                          {% for jour in jours %}
+                                          <option value="{{jour.id_jour}}"> {{jour.date}} </option>
+                                          {% endfor %}
+
+                                        </select>
+                                      </div>
+
+                                      </div>
+                                      <div class="form-group col-md-2 col-lg-2">
+                                        <label >Heure debut</label>
+                                        <input type="time" class="form-control" id="heuredebut" name="heure_debut">
+                                      </div>
+                                      <div class="form-group col-md-2 col-lg-2">
+                                        <label >Heure Fin</label>
+                                        <input type="time" class="form-control" id="heurefin" name="heure_fin">
+                                      </div>
+
+                                    <button  style="       margin-top: 29px;
+                                                            margin-left: 24px;
+                                                            width: 12%;
+                                                            height: 33px; " type="submit" class="button is-success">Search</button>
+                                  </form>
+                    <br>
+                     <table class="table table-sm">
+				<tr>
+					<th  class="is-info">Nom</th>
+					<th class="is-info">Heure d'entrée</th>
+					<th class="is-info">Heure de sortie</th>
+					<th class="is-info">Jours</th>
+				</tr>
+
+				{% for assistant in assistants  %}
+					<tr>
+						<td>{{assistant.Nom}}</td>
+                        <td><button class="button is-info is-light">{{assistant.heure_debut}}</button> </td>
+                        <td><button class="button is-primary is-light">{{assistant.heure_fin}}</button> </td>
+                        <td>   <a class="btn btn-primary" data-toggle="collapse" href="#{{assistant.Nom}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        Afficher  </a>
+                            <div class="collapse" id="{{assistant.Nom}}" }>
+                        {% for x in assistant.jour_travail.all %} {{ x }} <br> {% endfor %}
+
+                        </div>
+
+                        </td>
+
+					</tr>
+				{% endfor %}
+            </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script async type="text/javascript" src="../js/bulma.js"></script>
+
+
+{% endblock content %}
+

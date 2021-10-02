@@ -1,0 +1,132 @@
+{% extends 'hospitalisation/Index.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3 ">
+                <aside class="menu is-hidden-mobile">
+
+                    <ul class="menu-list">
+                         <li><a href="{% url 'dashboard'%}" >Dashboard</a></li>
+                        <li><a href="{% url 'dashboard_Medcins'%}" class="is-active"> Medcines</a></li>
+                        <li><a href="{% url 'dashboard_Assistants' %}" >Assistants</a></li>
+                        <li><a href="{% url 'dashboard_Patients' %}">Patients</a></li>
+                        <li><a href="{% url 'dashboard_Salles' %}">Salles</a></li>
+                        <li><a href="{% url 'dashboard_Hospitalisations' %}">Hospitalisations</a></li>
+                        <li><a href="{% url 'dashboard_Matériel' %}"> Ressources matérielles</a></li>
+
+                    </ul>
+
+                </aside>
+            </div>
+            <div class="column is-9">
+
+                <section class="hero is-info welcome is-small">
+                    <div class="hero-body">
+                        <div class="container">
+                            <h1 class="title">
+                               Listes Des Medcins.
+                            </h1>
+                        </div>
+                    </div>
+                </section>
+                <hr>
+                <section class="info-tiles">
+                    <div class="tile is-ancestor has-text-centered">
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <p class="subtitle">Ajouter un Médcin </p>
+                                 <a href="{% url 'dashboard_ajouter_medcin'%}"><button class="button is-info" >Ajouter</button> </a>
+                            </article>
+                        </div>
+
+                        <div class="tile is-parent">
+                            <article class="tile is-child  box">
+                                <p class="subtitle">Médcins disponible</p>
+                                <a href="{% url 'dashboard_Medcins_Liste'%}"> <button class="button is-info"> consulter</button> </a>
+
+                            </article>
+                        </div>
+                    </div>
+                </section>
+                <div class="card-content">
+                            <div class="filter" >
+                                  <form method="GET" action=".">
+                                    <div class="form-row">
+                                      <div class="form-group col-md-3 col-lg-3">
+                                        <label for="Nom">Nom</label>
+                                        <input type="text" class="form-control" id="Nom" placeholder="Dr..." name="Nom">
+                                      </div>
+
+                                          <div class="form-group col-md-3 col-lg-3">
+                                        <label for="jour">Jour:</label>
+                                        <select id="jour" name="jourtravail" style="margin-top: 0px;
+                                                                                        width: 83%;
+                                                                                        height: 34px;
+                                                                                        }">
+                                              {% for jour in jours %}
+                                          <option value="{{jour.id_jour}}"> {{jour.date}} </option>
+                                          {% endfor %}
+
+                                        </select>
+                                      </div>
+
+
+
+                                      <div class="form-group col-md-2 col-lg-2">
+                                        <label >Heure debut</label>
+                                        <input type="time" class="form-control" id="heuredebut" name="heure_debut">
+                                      </div>
+                                      <div class="form-group col-md-2 col-lg-2">
+                                        <label >Heure Fin</label>
+                                        <input type="time" class="form-control" id="heurefin" name="heure_fin">
+                                      </div>
+                                      </div>
+
+                                        <button  style="        margin-top: 29px;
+                                                                margin-left: 24px;
+                                                                width: 12%;
+                                                                height: 33px; " type="submit" class="button is-success">Search</button>
+                                  </form>
+
+                </div>
+                    <br>
+                    <table class="table table-sm">
+				<tr>
+					<th  class="is-info">Nom</th>
+					<th class="is-info">Heure d'entrée</th>
+					<th class="is-info">Heure de sortie</th>
+					<th class="is-info">Jours de travail</th>
+				</tr>
+
+				{% for docteur in docteurs  %}
+					<tr>
+						<td>{{docteur.Nom}}</td>
+                        <td><button class="button is-info is-light">{{docteur.heure_debut}}</button> </td>
+                        <td><button class="button is-primary is-light">{{docteur.heure_fin}}</button> </td>
+                        <td>   <a class="btn btn-primary" data-toggle="collapse" href="#{{docteur.Nom}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        Afficher  </a>
+                            <div class="collapse" id="{{docteur.Nom}}" }>
+                        {% for x in docteur.jourtravail.all %} {{ x }} <br> {% endfor %}
+
+                        </div>
+
+                        </td>
+
+
+					</tr>
+				{% endfor %}
+            </table>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script async type="text/javascript" src="../js/bulma.js"></script>
+
+
+{% endblock content %}
+

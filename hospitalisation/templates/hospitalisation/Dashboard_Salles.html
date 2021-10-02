@@ -1,0 +1,100 @@
+{% extends 'hospitalisation/Index.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3 ">
+                <aside class="menu is-hidden-mobile">
+
+                    <ul class="menu-list">
+                         <li><a href="{% url 'dashboard'%}">Dashboard</a></li>
+                        <li><a href="{% url 'dashboard_Medcins'%}"> Medcines</a></li>
+                        <li><a href="{% url 'dashboard_Assistants' %}" >Assistants</a></li>
+                        <li><a href="{% url 'dashboard_Patients' %}">Patients</a></li>
+                        <li><a href="{% url 'dashboard_Salles' %}" class="is-active" >Salles</a></li>
+                        <li><a href="{% url 'dashboard_Hospitalisations' %}">Hospitalisations</a></li>
+                        <li><a href="{% url 'dashboard_Matériel' %}"> Ressources matérielles</a></li>
+                    </ul>
+
+                </aside>
+            </div>
+            <div class="column is-9">
+
+                <section class="hero is-info welcome is-small">
+                    <div class="hero-body">
+                        <div class="container">
+                            <h1 class="title">
+                               Listes Des Salles.
+                            </h1>
+                        </div>
+                    </div>
+                </section>
+                <hr>
+                <section class="info-tiles">
+                    <div class="tile is-ancestor has-text-centered">
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <p class="subtitle">Ajouter une salle  </p>
+ <a href="{% url 'dashboard_ajouter_salle'%}"><button class="button is-info" >Ajouter</button> </a>
+                            </article>
+                        </div>
+
+                    </div>
+                </section>
+                <div class="card-content">
+
+                                         <div class="filter" >
+
+
+                                  <form method="GET" action=".">
+                                    <div class="form-row">
+                                      <div class="form-group col-md-2 col-lg-2">
+                                        <label for="Nemerosalle">N'de Salle</label>
+                                        <input type="number" class="form-control" id="Nemerosalle" placeholder="..." name="Nemero_salle">
+                                      </div>
+                                      </div>
+
+                                    <button  style="        margin-top: 29px;
+                                                            margin-left: 1px;
+                                                            width: 20%;
+                                                            height: 33px;" type="submit" class="button is-success">Chercher</button>
+                                  </form>
+
+
+
+
+                             </div>
+                <br>
+                    <div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Etat </th>
+					<th>Numéro Salle</th>
+					<th> Lits</th>
+					<th> </th>
+				</tr>
+
+				{% for salle in salles %}
+					<tr>
+                        {% if salle.complete %}
+                                <td><a class="btn btn-sm btn-danger" href=""> Reservée</a></td>
+                        {% else %}
+                                <td><a class="btn btn-sm btn-info" href=""> Disponible </a></td>
+                        {% endif %}
+                                <td>Salle {{salle.Nemero_salle}}</td>
+                                <td>{{salle.Numero_lits}}</td>
+					</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+		</div>
+		</div>
+                </div>
+    </div>
+    <script async type="text/javascript" src="../js/bulma.js"></script>
+
+
+{% endblock content %}
+
